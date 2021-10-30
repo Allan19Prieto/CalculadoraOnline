@@ -17,6 +17,28 @@
         <div class="calculadora">
             <form action="#" name="calculadora" id="calculadora">
                 <p id="textoPantalla">0</p>
+                <script>
+                    /*Constructor */
+                    var ws = new WebSocket("ws://localhost:8080/demo_war_exploded/ws");
+                    /*Manejador de eventos*/
+                    ws.onmessage = function (event) {
+                        console.log(event.data);
+                        document.getElementById("textoPantalla").value += event.data + "\n";
+                    }
+
+                    /*document.getElementById("input").addEventListener("keyup", function (event) {
+                        if (event.keyCode === 13) {
+                            ws.send(event.target.value);
+                            event.target.value = "";
+                        }
+                    });
+
+                    function timestamp() {
+                        var d = new Date(), minutes = d.getMinutes();
+                        if (minutes < 10) minutes = '0' + minutes;
+                        return d.getHours() + ':' + minutes;
+                    }*/
+                </script>
                 <p>
                     <!-- Nos permite gen    erar espacios en el html -->
                     &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
@@ -55,6 +77,7 @@
         </div>
     </center>
 </div>
+
 
 <div id="columna2">
     Columna 2

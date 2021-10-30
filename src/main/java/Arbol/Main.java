@@ -9,30 +9,44 @@ public class Main {
 
     private static ExpressionTree expressionTree;
 
+    /**
+     * Clase principal
+     * @param args
+     */
     public static void main(String[] args) {
-        /*Instancia la clase que crea el arbol*/
+        /**
+         * Instancia la clase que crea el arbol
+         * */
         expressionTree = new ExpressionTree();
 
-        /*Entrada de datos*/
+        /**
+         * Entrada de datos
+         * */
         System.out.println("*Escribe una expresión algebraica: ");
         Scanner leer = new Scanner(System.in);
 
-        /*Elimina espacios*/
+        /**
+         * Elimina espacios
+         * */
         String expr = depurar(leer.nextLine());
         String[] arrayInfix = expr.split(" ");
 
-        /*Instancia las pilas*/
+
         Stack < String > E = new Stack < String > (); /*Pila entrada*/
         Stack < String > P = new Stack < String > (); /*Pila operadores*/
         Stack < String > S = new Stack < String > (); /*Pila Salida*/
 
-        /*Añade la array a la pila de entrada*/
+        /**
+         * Añade la array a la pila de entrada
+         * */
         for (int i = arrayInfix.length - 1; i >= 0; i--) {
             E.push(arrayInfix[i]);
         }
 
         try {
-            /*Algoritmo para convertir la expresion a postfijo*/
+            /**
+             * Algoritmo para convertir la expresion a postfijo
+             * */
             while (!E.isEmpty()) { /*Verifica si esta vacia*/
                 switch (jerarquia(E.peek())){ /*Verifica cual es la jerarquia*/
                     case 1: /*Parentesis abierto*/
@@ -57,7 +71,9 @@ public class Main {
                 }
             }
 
-            /*Elimina todas las impurezas de la expresion*/
+            /**
+             * Elimina todas las impurezas de la expresion
+             * */
             String infix = expr.replace(" ", "");
             String postfix = S.toString().replaceAll("[\\]\\[,]", "");
             /*Muestra los resultados*/
@@ -70,7 +86,9 @@ public class Main {
                 posfix_array[index] = S.pop(); /*Ingresa los datos al array*/
                 index--;
             }
-            /*Llama a la clase que crea el arbol*/
+            /**
+             * Llama a la clase que crea el arbol
+             * */
             Node root = expressionTree.constructTree(posfix_array);
             expressionTree.inorder(root);
 
@@ -80,14 +98,20 @@ public class Main {
         }
     }
 
-    /*Depura la expresion*/
+    /**
+     * Depura la expresion
+     * @param s
+     * @return
+     */
     private static String depurar(String s) {
         s = s.replaceAll("\\s+", ""); /*Elimina los espacios en blanco*/
         s = "(" + s + ")";
         String simbols = "+-*/()";
         String str = "";
 
-        /*Deja espacios entre operadores*/
+        /**
+         * Deja espacios entre operadores
+         * */
         for (int i = 0; i < s.length(); i++) {
             if (simbols.contains("" + s.charAt(i))) {
                 str += " " + s.charAt(i) + " ";
@@ -95,10 +119,12 @@ public class Main {
         }
         return str.replaceAll("\\s+", " ").trim();
 
-
     }
-
-    /*Jerarquia de los operadores*/
+    /**
+     * Jerarquia de los operadores
+     * @param op
+     * @return
+     */
     private static int jerarquia(String op) {
         int prf = 99;
         if (op.equals("*") || op.equals("/") || op.equals("%")) prf = 4;
