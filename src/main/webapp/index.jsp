@@ -18,7 +18,7 @@
             <form action="#" name="calculadora" id="calculadora">
                 <p id="textoPantalla">0</p>
                 <p>
-                    <!-- Nos permite gererar espacios en el html -->
+                    <!-- Nos permite gen    erar espacios en el html -->
                     &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                     <input type="button" class="largo" value="<-- Borrar" onclick="borradoParcial()"/>
                     <input type="button" class="largo" value="C" onclick="borradoTotal()"/>
