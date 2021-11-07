@@ -12,20 +12,39 @@ import java.util.Map;
  */
 @ServerEndpoint("/ws")
 public class CalServer {
-
+    private Map<String, String> usernames = new HashMap<String, String>();
     /**
-     * Metodo que envia un mensaje al abrir la conexion
+     * Manejador de eventos
      * @param session
      * @throws IOException
      * @throws EncodeException
      */
     @OnOpen
-    public void open(Session session) throws IOException, EncodeException {
-        session.getBasicRemote().sendText("Hola desde el servidor ");
+    public void open(Session session) throws IOException {
+        String userid = session.getId();
+        session.getBasicRemote().sendText("Ingreso el usuario el usuario " + userid);
     }
 
     /**
-     *Metodo qeu realizara las cosa al resivir un mensaje desde el cliente
+     * Controlador de cierre de una conexion
+     * @param session
+     * @throws IOException
+     * @throws EncodeException
+     */
+    @OnClose
+    public void close(Session session) throws IOException, EncodeException {
+        /*Este seria el identificador de id*/
+        String userId = session.getId();
+        if (usernames.containsKey(userId)) {
+            String username = usernames.get(userId);
+            usernames.remove(userId);
+            for (Session peer : session.getOpenSessions())
+                peer.getBasicRemote().sendText("(Server): " + userId +" left the chat room.");
+        }
+    }
+
+    /**
+     * Interactua y intercambia mensajes con el cliente
      * @param message
      * @param session
      * @throws IOException
@@ -34,9 +53,20 @@ public class CalServer {
     @OnMessage
     public void handleMessage(String message, Session session) throws IOException, EncodeException {
         String userId = session.getId();
+        System.out.println(userId + " : " + message.getClass().getSimpleName());
         //System.out.println(userId + " : " + message);
-        /*session.getBasicRemote().sendText("(Server): Welcome, " + message + "5");
-        session.getBasicRemote().sendText("5+5");*/
+        /*if( message.equals("8")){
+            session.getBasicRemote().sendText("("+userId + ") "  + "M verdad");
+        }
+        if( message.equals("5")){
+            session.getBasicRemote().sendText("("+userId + ") "  + "M falso");
+        }*/
+        añadir(message, session);
+
+    }
+
+    public void añadir(String message, Session session) throws IOException {
+        session.getBasicRemote().sendText(message + "Vengo de otra funcion");
 
     }
 

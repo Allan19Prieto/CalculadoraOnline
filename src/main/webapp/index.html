@@ -3,41 +3,22 @@
 <head>
     <meta charset="utf-8">
     <title>Calculadora_TEC</title>
-    <link rel="stylesheet" href="styles.css">
     <link rel="stylesheet" href="css/styles.css">
     <link rel="stylesheet" href="css/stylePantalla.css">
     <script type="text/javascript" src="js/calculadora.js"></script>
 </head>
-<body>
+<body style="margin: 0">
 <div id="columna1">
     <center>
-        <h2>Ingrese una expresión</h2>
-        <br>
+        <input type="text" id="lo" value="Evaluar Expresiones" style="color: cadetblue; font-family: sans-serif; font-weight: bold; text-align: center; margin: 2%"/>
+        <br/>
+        <textarea title="Chat Log" id="log" readonly
+                  style="display: block; width: 50%; height: 150px; resize: none; margin: 2%; padding: 0; border: 0;"></textarea>
+        <br/>
         <div class="calculadora">
             <form action="#" name="calculadora" id="calculadora">
                 <p id="textoPantalla"></p>
-                <script>
-                    /*Constructor */
-                    var ws = new WebSocket("ws://localhost:8080/demo_war_exploded/ws");
-                    /*Manejador de eventos*/
-                    ws.onmessage = function (event) {
-                        var message = event.data;
-                        document.getElementById("textoPantalla").value += message;
-                    }
 
-                    /*document.getElementById("input").addEventListener("keyup", function (event) {
-                        if (event.keyCode === 13) {
-                            ws.send(event.target.value);
-                            event.target.value = "";
-                        }
-                    });
-
-                    /*function timestamp() {
-                        var d = new Date(), minutes = d.getMinutes();
-                        if (minutes < 10) minutes = '0' + minutes;
-                        return d.getHours() + ':' + minutes;
-                    }*/
-                </script>
                 <p>
                     <!-- Nos permite gererar espacios en el html -->
                     &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
@@ -45,7 +26,7 @@
                     <input type="button" class="largo" value="C" onclick="borradoTotal()"/>
                 </p>
                 <p>
-                    <input type="button" value="7" onclick="numero(7)"/>
+                    <input type="button" value="7" onclick="numero('7')"/>
                     <input type="button" value="8" onclick="numero('8')"/>
                     <input type="button" value="9" onclick="numero('9')"/>
                     <input type="button" class="operadores" value="+" onclick="numero('+')"/>
@@ -70,16 +51,59 @@
                     <input type="button" value="0" onclick="numero('0')"/>
                     &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                     <input type="button" class="operadores" value=")" onclick="numero(')')"/>
-                    <input type="button" id="input" class="operadores" value="=" onclick="igualar()"/>
+                    <input type="button" id="inputt" class="operadores" value="=" onclick="igualar()"/>
                 </p>
             </form>
         </div>
     </center>
 </div>
-
 <div id="columna2">
     Columna 2
 
 </div>
+<script>
+    /*Constructor*/
+    var ws = new WebSocket("ws://localhost:8080/demo_war_exploded/ws");
+    var pantalla;
+    /*Manejador de eventos*/
+
+    /**
+     * Conexion  con la direccion y mostrar los datos qeu devuelve el servidor
+     * @param event
+     */
+    ws.onmessage = function (event) {
+        //console.log(event.data);
+        document.getElementById("log").value += event.data + "\n";
+    }
+
+    /*ws.onload = function(){ //Acciones tras cargar la página
+        pantalla=document.getElementById("textoPantalla"); //elemento pantalla de salida
+        document.onkeydown = teclado; //función teclado disponible
+    }*/
+
+    /**
+     * Funcion para enviar los datos de la pantalla al precionar el igual
+     */
+    document.getElementById("inputt").addEventListener("click", function (event) {
+        Enviar();
+        //console.log("1")
+    });
+
+    /**
+     * Funcion para enviar los datos al servidor y limpiar el imput
+     * @constructor
+     */
+    function Enviar(){
+        mens=document.getElementById("textoPantalla").innerText;
+        ws.send(mens);
+        pantalla.innerHTML = "";
+    }
+
+    /*function timestamp() {
+        var d = new Date(), minutes = d.getMinutes();
+        if (minutes < 10) minutes = '0' + minutes;
+        return d.getHours() + ':' + minutes;
+    }*/
+</script>
 </body>
 </html>

@@ -21,11 +21,6 @@ function numero(num) { //recoge el número pulsado en el argumento.
     xi = 0 //el número está iniciado y podemos ampliarlo.
 }
 
-
-function igualar() {
-    /*Aqui mandariamos los datos al servidor*/
-}
-
 function borradoParcial() {
     cifras = x.length; //hayar número de caracteres en pantalla
     br = x.substr(cifras - 1, cifras) //describir último caracter
