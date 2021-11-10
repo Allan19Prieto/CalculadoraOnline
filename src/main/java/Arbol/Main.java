@@ -22,13 +22,13 @@ public class Main {
         /**
          * Entrada de datos
          * */
-        System.out.println("*Escribe una expresión algebraica: ");
-        Scanner leer = new Scanner(System.in);
+
+        String leer = "5*3/8+(95%5-10)";
 
         /**
          * Elimina espacios
          * */
-        String expr = depurar(leer.nextLine());
+        String expr = depurar(leer);
         String[] arrayInfix = expr.split(" ");
 
 
@@ -106,7 +106,7 @@ public class Main {
     private static String depurar(String s) {
         s = s.replaceAll("\\s+", ""); /*Elimina los espacios en blanco*/
         s = "(" + s + ")";
-        String simbols = "+-*/()";
+        String simbols = "+-*/%()";
         String str = "";
 
         /**

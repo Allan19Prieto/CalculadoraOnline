@@ -19,6 +19,7 @@ class Node {
  * Clase para crear el arbol de expresion binaria
  * */
 class ExpressionTree {
+    private resultado eval;
     /**
      * Clase para crear el arbol de expresion binaria
      * @param element
@@ -50,6 +51,7 @@ class ExpressionTree {
      * Construye el arbol con la expresion postfija
      * */
     Node constructTree(String[] postfix) {
+        eval = new resultado();
         Stack<Node> st = new Stack<Node>();
         Node t, t1, t2;
 
@@ -97,6 +99,8 @@ class ExpressionTree {
         /**
          * Devuelve el arbol
          * */
+        System.out.println(eval.evalTree(t));
+
         return t;
     }
 

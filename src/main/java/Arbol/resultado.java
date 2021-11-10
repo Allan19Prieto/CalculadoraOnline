@@ -10,6 +10,8 @@ class resultado {
      * Clase que asigna los valores de los nodos
      * */
 
+
+
     public static class Node {
         String data;
         Node left, right;
@@ -49,7 +51,7 @@ class resultado {
      * @param root
      * @return
      */
-    public static int evalTree(Node root) {
+    public static int evalTree(Arbol.Node root) {
 
         // Empty tree
         if (root == null) /*Verifica que la raiz no sea nulo */
@@ -59,7 +61,7 @@ class resultado {
          * Verifica que los hijos izquierdo y derecho no sean nulos
          * */
         if (root.left == null && root.right == null)
-            return toInt(root.data);
+            return toInt(root.value);
 
         /**
          * Evalua el subsarbol izquierdo
@@ -75,31 +77,31 @@ class resultado {
         /**
          * Si es una suma entonces suma los 2 hijos
         * */
-        if (root.data.equals("+"))
+        if (root.value.equals("+"))
             return leftEval + rightEval;
 
         /**
          * Si es una resta entonces suma los 2 hijos
          * */
-        if (root.data.equals("-"))
+        if (root.value.equals("-"))
             return leftEval - rightEval;
 
         /**
          * Si es una multilicacion entonces suma los 2 hijos
          * */
-        if (root.data.equals("*"))
+        if (root.value.equals("*"))
             return leftEval * rightEval;
 
         /**
          * Si es una division entonces suma los 2 hijos
          * */
-        if (root.data.equals("/"))
-            return leftEval / rightEval;
+        //if (root.value.equals("/"))
+          //  return leftEval / rightEval;
 
         /**
          * Si es una division entera entonces suma los 2 hijo
          * */
-        if (root.data.equals("%"))
+        if (root.value.equals("%"))
             return leftEval % rightEval;
 
         return leftEval / rightEval;
