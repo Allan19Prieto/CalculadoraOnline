@@ -1,5 +1,7 @@
 package Arbol;
 
+import calserver.CalServer;
+
 import java.util.Stack;
 
 /**
@@ -20,6 +22,7 @@ class Node {
  * */
 class ExpressionTree {
     private resultado eval;
+    private CalServer result;
     /**
      * Clase para crear el arbol de expresion binaria
      * @param element
@@ -42,7 +45,6 @@ class ExpressionTree {
     void inorder(Node t){
         if (t != null){
             inorder(t.left);
-            System.out.print(t.value + "");
             inorder(t.right);
 
         }
@@ -51,7 +53,6 @@ class ExpressionTree {
      * Construye el arbol con la expresion postfija
      * */
     Node constructTree(String[] postfix) {
-        eval = new resultado();
         Stack<Node> st = new Stack<Node>();
         Node t, t1, t2;
 
@@ -99,10 +100,14 @@ class ExpressionTree {
         /**
          * Devuelve el arbol
          * */
-        System.out.println(eval.evalTree(t));
+        int resultado = eval.evalTree(t);
+        //result.añadir2(String.valueOf(resultado));
 
+        System.out.println(eval.evalTree(t));
         return t;
     }
+
+
 
     /**
      * Main de la clase

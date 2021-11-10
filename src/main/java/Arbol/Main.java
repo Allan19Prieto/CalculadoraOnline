@@ -1,34 +1,22 @@
 package Arbol;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Scanner;
 import java.util.Stack;
 
 public class Main {
 
     private static ExpressionTree expressionTree;
 
-    /**
-     * Clase principal
-     * @param args
-     */
-    public static void main(String[] args) {
-        /**
-         * Instancia la clase que crea el arbol
-         * */
-        expressionTree = new ExpressionTree();
-
+    public static void principal(String r) {
         /**
          * Entrada de datos
          * */
-
-        String leer = "5*3/8+(95%5-10)";
+        //String expresion = "5*3/8+(95%5-10)";
 
         /**
          * Elimina espacios
          * */
-        String expr = depurar(leer);
+
+        String expr = depurar(r);
         String[] arrayInfix = expr.split(" ");
 
 
@@ -77,7 +65,6 @@ public class Main {
             String infix = expr.replace(" ", "");
             String postfix = S.toString().replaceAll("[\\]\\[,]", "");
             /*Muestra los resultados*/
-            System.out.println("Expresion Infija: " + infix); /*Expresion infija*/
             System.out.println("Expresion Postfija: " + postfix); /*Expresion postfija*/
             String[] posfix_array = new String[S.size()]; /*Crea la nueva array*/
             // prueba
@@ -89,21 +76,23 @@ public class Main {
             /**
              * Llama a la clase que crea el arbol
              * */
+            expressionTree = new ExpressionTree();
             Node root = expressionTree.constructTree(posfix_array);
             expressionTree.inorder(root);
-
-        }catch(Exception ex){
+        }catch(Exception ex) {
             System.out.println("Error en la expresión algebraica");
             System.err.println(ex);
         }
     }
+
+
 
     /**
      * Depura la expresion
      * @param s
      * @return
      */
-    private static String depurar(String s) {
+    public static String depurar(String s) {
         s = s.replaceAll("\\s+", ""); /*Elimina los espacios en blanco*/
         s = "(" + s + ")";
         String simbols = "+-*/%()";

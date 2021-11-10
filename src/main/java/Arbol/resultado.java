@@ -10,8 +10,6 @@ class resultado {
      * Clase que asigna los valores de los nodos
      * */
 
-
-
     public static class Node {
         String data;
         Node left, right;
@@ -95,8 +93,8 @@ class resultado {
         /**
          * Si es una division entonces suma los 2 hijos
          * */
-        //if (root.value.equals("/"))
-          //  return leftEval / rightEval;
+        if (root.value.equals("/"))
+            return leftEval / rightEval;
 
         /**
          * Si es una division entera entonces suma los 2 hijo

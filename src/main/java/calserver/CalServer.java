@@ -1,4 +1,6 @@
 package calserver;
+import Arbol.Main;
+
 import javax.websocket.*;
 import javax.websocket.server.ServerEndpoint;
 import java.io.IOException;
@@ -12,6 +14,7 @@ import java.util.Map;
  */
 @ServerEndpoint("/ws")
 public class CalServer {
+    private Main post;
     private Map<String, String> usernames = new HashMap<String, String>();
     /**
      * Manejador de eventos
@@ -53,7 +56,7 @@ public class CalServer {
     @OnMessage
     public void handleMessage(String message, Session session) throws IOException, EncodeException {
         String userId = session.getId();
-        System.out.println(userId + " : " + message.getClass().getSimpleName());
+        System.out.println(userId + " : " + message);
         //System.out.println(userId + " : " + message);
         /*if( message.equals("8")){
             session.getBasicRemote().sendText("("+userId + ") "  + "M verdad");
@@ -61,14 +64,19 @@ public class CalServer {
         if( message.equals("5")){
             session.getBasicRemote().sendText("("+userId + ") "  + "M falso");
         }*/
+        post = new Main();
+        post.principal(message);
         añadir(message, session);
-
 
     }
 
     public void añadir(String message, Session session) throws IOException {
-        session.getBasicRemote().sendText(message + "Vengo de otra funcion");
+        session.getBasicRemote().sendText(message);
 
     }
+    public String añadir2(String x){
+        return x;
+    }
+
 
 }
