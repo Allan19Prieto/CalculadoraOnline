@@ -23,6 +23,7 @@ class Node {
 class ExpressionTree {
     private resultado eval;
     private CalServer result;
+    private int resultado;
     /**
      * Clase para crear el arbol de expresion binaria
      * @param element
@@ -53,6 +54,7 @@ class ExpressionTree {
      * Construye el arbol con la expresion postfija
      * */
     Node constructTree(String[] postfix) {
+        this.resultado = 0;
         Stack<Node> st = new Stack<Node>();
         Node t, t1, t2;
 
@@ -100,11 +102,15 @@ class ExpressionTree {
         /**
          * Devuelve el arbol
          * */
-        int resultado = eval.evalTree(t);
-        //result.añadir2(String.valueOf(resultado));
+
+        this.resultado = eval.evalTree(t);
+
 
         System.out.println(eval.evalTree(t));
         return t;
+    }
+    public int getResultado(){
+        return this.resultado;
     }
 
 

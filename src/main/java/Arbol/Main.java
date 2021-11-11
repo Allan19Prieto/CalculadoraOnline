@@ -5,8 +5,10 @@ import java.util.Stack;
 public class Main {
 
     private static ExpressionTree expressionTree;
+    private int resultado;
 
-    public static void principal(String r) {
+    public void principal(String r) {
+        this.resultado = 0;
         /**
          * Entrada de datos
          * */
@@ -79,10 +81,14 @@ public class Main {
             expressionTree = new ExpressionTree();
             Node root = expressionTree.constructTree(posfix_array);
             expressionTree.inorder(root);
+            this.resultado = expressionTree.getResultado();
         }catch(Exception ex) {
             System.out.println("Error en la expresión algebraica");
             System.err.println(ex);
         }
+    }
+    public int getResultado(){
+        return this.resultado;
     }
 
 

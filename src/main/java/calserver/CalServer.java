@@ -14,6 +14,7 @@ import java.util.Map;
  */
 @ServerEndpoint("/ws")
 public class CalServer {
+    private Session session;
     private Main post;
     private Map<String, String> usernames = new HashMap<String, String>();
     /**
@@ -24,6 +25,7 @@ public class CalServer {
      */
     @OnOpen
     public void open(Session session) throws IOException {
+        this.session = session;
         String userid = session.getId();
         session.getBasicRemote().sendText("Ingreso el usuario el usuario " + userid);
     }
@@ -66,17 +68,18 @@ public class CalServer {
         }*/
         post = new Main();
         post.principal(message);
-        añadir(message, session);
-
+        añadirExpresion(message, session);
+        añadirResultado(String.valueOf(post.getResultado()),session);
     }
 
-    public void añadir(String message, Session session) throws IOException {
-        session.getBasicRemote().sendText(message);
+    public void añadirResultado(String message, Session session) throws IOException {
+        session.getBasicRemote().sendText(" ");
+        session.getBasicRemote().sendText("Resultado:  "+message);
+
 
     }
-    public String añadir2(String x){
-        return x;
+    public void añadirExpresion(String message, Session session) throws IOException {
+        session.getBasicRemote().sendText(" ");
+        session.getBasicRemote().sendText("Expresion:  "+message);
     }
-
-
 }
